@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+
+
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<description></description>
+		<display-name>WftDemoService</display-name>
+		<servlet-name>WftDemoService</servlet-name>
+		<servlet-class>net.nfrese.wifkit.demo.service.WftDemoService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WftDemoService</servlet-name>
+		<url-pattern>/wft</url-pattern>
+	</servlet-mapping>
+</web-app>
