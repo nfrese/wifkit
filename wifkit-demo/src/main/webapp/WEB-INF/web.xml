@@ -17,4 +17,15 @@
 		<servlet-name>WftDemoService</servlet-name>
 		<url-pattern>/wft</url-pattern>
 	</servlet-mapping>
+	
+    <servlet>
+		<description></description>
+		<display-name>WftDomDemoService</display-name>
+		<servlet-name>WftDomDemoService</servlet-name>
+		<servlet-class>net.nfrese.wifkit.demo.service.WftDomDemoService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WftDomDemoService</servlet-name>
+		<url-pattern>/wftdomdemo</url-pattern>
+	</servlet-mapping>
 </web-app>

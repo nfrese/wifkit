@@ -134,6 +134,18 @@ function wft_move(arr, ix, toix)
 	arr.splice(toix, 0, cutElement);
 }
 
+function wft_filter_object( obj, memberFilterFn) {
+    var result = {}, key;
+
+    for (key in obj) {
+        if (obj.hasOwnProperty(key) && memberFilterFn(key, obj[key])) {
+            result[key] = obj[key];
+        }
+    }
+
+    return result;
+};
+
 $( document ).ready(function() {
 	 wft_log('wft_ready');
 	 wft_onReady();
@@ -313,6 +325,18 @@ var WFTProperties = PClass.create({
 	get : function(k)
 	{
 		return this._map[k];
+	},
+	
+	getMap : function()
+	{
+		return this._map;
+	},
+
+	getMapWithPrefix : function(prefix)
+	{
+		return wft_filter_object( this._map, 
+			function(key, value) { return key.indexOf(prefix, 0) === 0; }
+		);
 	},
 	
 	_fireChanged : function(k, pa)
