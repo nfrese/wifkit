@@ -84,7 +84,7 @@ var WFTDomElement = WFTList.extend({
 		var text = this.properties.get('text');
 		var attributeHtml = '';
 		
-		var attrProps = this.properties.getMapWithPrefix('attr:');
+		var attrProps = this.properties.startingWith('attr:');
 
 		$.each(attrProps, function(key, value) {
 			var attrName = key.replace(/^attr\:/, '');
@@ -94,7 +94,8 @@ var WFTDomElement = WFTList.extend({
 		return '<' + name + ' id="'
 			+ this.dom.nodeId() +'"' 
 			+ attributeHtml +'>'
-			+ text + '</' + name + '>';
+			+ (text != null ? text : '') 
+			+ '</' + name + '>';
 	},
 	
 	beforeChildInit : function(ix, childInstance) {
@@ -105,7 +106,29 @@ var WFTDomElement = WFTList.extend({
 	detachChild : function(childInstance) {
 		var itemNode = $('#' + this.itemId(childInstance));
 		itemNode.remove();
-	} 
+	}, 
+	
+	subscribe : function(ename, pa, callback)
+	{
+		var _this = this;
+		this.dom.node().on(ename, function() 
+		{
+			
+			var propName = pa['propname'];
+			var value = null;
+			
+			if (propName = 'attr:value')
+			{
+				value = _this.dom.node().val();
+			}
+			else if (propName = 'text')
+			{
+				value = _this.dom.node().text();
+			}
+			
+			callback({'k' : propName, 'v' : value});
+		});
+	},
 	
 });
 

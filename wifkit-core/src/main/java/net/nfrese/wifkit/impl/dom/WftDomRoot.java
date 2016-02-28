@@ -9,4 +9,7 @@ public abstract class WftDomRoot extends WftPage<WftObject> {
 		super("DomRoot");
 	}
 	
+	public void setContent(WftDomElement el) {
+		put("body", el);
+	}
 }

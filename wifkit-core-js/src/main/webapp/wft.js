@@ -332,7 +332,7 @@ var WFTProperties = PClass.create({
 		return this._map;
 	},
 
-	getMapWithPrefix : function(prefix)
+	startingWith : function(prefix)
 	{
 		return wft_filter_object( this._map, 
 			function(key, value) { return key.indexOf(prefix, 0) === 0; }

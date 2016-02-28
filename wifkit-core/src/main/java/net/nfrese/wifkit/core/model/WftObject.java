@@ -32,6 +32,7 @@ public abstract class WftObject {
 	public static final String ETYPE_SUBSCRIBE = "s_subscribe";
 	public static final String ETYPE_UNSUBSCRIBE = "s_unSubscribe";
 	public static final String PROPERTY_ENAMEFIELD = "ename";
+	public static final String PROPERTY_PROPNAMEFIELD = "propname";
 	public static final String PROPERTY_PRIORITYFIELD = "prio";
 	public static final String PROPERTY_DELAYMILLISECONDS = "delayms";
 
@@ -162,6 +163,11 @@ public abstract class WftObject {
 	public void monitor(String propertyName, int delayMilliseconds)
 	{
 		subscriptions.subscribe("set:" + propertyName, delayMilliseconds);
+	}
+	
+	public void monitor(String eventName, String propertyName, int delayMilliseconds)
+	{
+		subscriptions.subscribe(eventName, propertyName, delayMilliseconds);
 	}
 
 	public void addPropertyChangedListener(String propertyName, PropertyChangeListener l, int delayMilliseconds) {

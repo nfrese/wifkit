@@ -39,6 +39,10 @@ public class WftSubscriptions {
 		subscribe(newSubScription);
 	}
 	
+	public void subscribe(String eventName, String propertyName, int delayMilliseconds) {
+		SubScription newSubScription = new SubScription(eventName, propertyName, delayMilliseconds);
+		subscribe(newSubScription);
+	}
 	private SubScription subscribe(SubScription newSubscription)
 	{
 		SubScription subScription = map.get(newSubscription.eventName);
@@ -94,22 +98,37 @@ public class WftSubscriptions {
 	
 	public static class SubScription
 	{
+		private String propertyName = null;
+		public final String eventName;
+		public Integer delayMilliseconds;
+		public EventListenerList listeners = new EventListenerList();
+
 		public SubScription(String eventName, Integer delayMilliseconds) {
 			super();
 			this.eventName = eventName;
 			this.delayMilliseconds = delayMilliseconds;
 		}
 
-		public final String eventName;
-		public Integer delayMilliseconds;
-		public EventListenerList listeners = new EventListenerList();
+		public SubScription(String eventName, String propertyName, int delayMilliseconds) {
+			super();
+			this.eventName = eventName;
+			this.propertyName = propertyName;
+			this.delayMilliseconds = delayMilliseconds;
+		}
+
 		
 		public ObjectNode serialize(JsonNodeFactory nodeFactory)
 		{
 			ObjectNode on = new ObjectNode(nodeFactory);
 			on.put(WftObject.PROPERTY_ENAMEFIELD, eventName);
+			if(propertyName!= null)
+			{
+				on.put(WftObject.PROPERTY_PROPNAMEFIELD, propertyName);
+			}
 			on.put(WftObject.PROPERTY_DELAYMILLISECONDS, delayMilliseconds);
 			return on;
 		}
 	}
+
+
 }

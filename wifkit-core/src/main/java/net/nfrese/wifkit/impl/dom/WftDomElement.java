@@ -16,8 +16,8 @@ public class WftDomElement extends WftList<WftObject> {
 		this.setProperty("text", text);
 	}
 
-	public void setAttribute(String attName, String value) {
-		this.setProperty("attr:" + attName, value);
+	public void setAttribute(String attrName, String value) {
+		this.setProperty("attr:" + attrName, value);
 	}
 	
 }
