@@ -19,13 +19,23 @@ public class MyWftDomRoot extends WftDomRoot {
 		WftDomElement textInput = new WftDomElement("input");
 		div.add(textInput);
 
-		textInput.setAttribute("type", "text");
+		WftDomElement br = new WftDomElement("br");
+		div.add(br);
+
+		WftDomElement span = new WftDomElement("span");
+		span.setProperty("text", "Number of Characters:");
+		div.add(span);
+
 		
+		textInput.setAttribute("type", "text");
 		textInput.monitor("input", "attr:value", 500);
 		
 		textInput.addPropertyChangedListener("attr:value", (evt)->{
 			System.out.println("hello");
+			String value = textInput.getAttribute("value");
+			span.setProperty("text", "Number of Characters: " + value.length());
 		}, 500);
+
 		super.init();
 	}
 }

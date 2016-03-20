@@ -146,6 +146,11 @@ function wft_filter_object( obj, memberFilterFn) {
     return result;
 };
 
+function wft_starts_with( str, prefix)
+{
+	return str.indexOf(prefix, 0) === 0;
+}
+
 $( document ).ready(function() {
 	 wft_log('wft_ready');
 	 wft_onReady();
@@ -304,7 +309,8 @@ var WFTProperties = PClass.create({
 	{
 		this._thisForListeners = thisForListeners;
 		this._map = {};
-		this._observers = {};
+		this._observers = {}; // observe distinct properties
+		this._anyChanged = new Observer(); // observe all properties
 	},
 	
 	put : function(k,v)
@@ -335,7 +341,7 @@ var WFTProperties = PClass.create({
 	startingWith : function(prefix)
 	{
 		return wft_filter_object( this._map, 
-			function(key, value) { return key.indexOf(prefix, 0) === 0; }
+			function(key, value) { return wft_starts_with(key, prefix); }
 		);
 	},
 	
@@ -345,6 +351,8 @@ var WFTProperties = PClass.create({
 		{
 			this._observers[k].fire(pa, this._thisForListeners);
 		}
+		
+		this._anyChanged.fire(pa, this._thisForListeners);
 	},
 	
 	changed : function(k) // create observer on demand
@@ -354,8 +362,12 @@ var WFTProperties = PClass.create({
 			this._observers[k] = new Observer(); 
 		}
 		return this._observers[k];
-	}
+	},
 	
+	anyChanged : function()
+	{
+		return this._anyChanged;
+	}
 });	
 
 var WFTItem = WFTAtom.extend({

@@ -91,6 +91,11 @@ public abstract class WftObject {
 		}
 	}
 
+	private boolean argsAreKeyValue(JsonNode args)
+	{
+		return args != null && args.has("k");
+	}
+	
 	public void call(String method, JsonNode args) {
 		PMethod pm = new PMethod(method);
 
@@ -98,10 +103,8 @@ public abstract class WftObject {
 		{
 			init();
 		}
-		else if ("set".equals(pm.getBaseName()))
+		else if ("set".equals(pm.getBaseName()) || argsAreKeyValue(args))
 		{
-
-
 			String k = args.get(PROPERTY_NAMEFIELD).textValue();
 			JsonNode v = args.get(PROPERTY_VALUEFIELD);
 

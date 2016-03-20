@@ -77,6 +77,23 @@ var WFTDomElement = WFTList.extend({
 	
 	winit : function ()
 	{
+		this.properties.anyChanged().on(function(pa) {
+			var key = pa['k'];
+			var value = pa['v'];
+			if (wft_starts_with(key, 'attr:')) 
+			{
+				var attrName = key.replace(/^attr\:/, '');
+				this.dom.node().attr(attrName, value);
+			}
+			else if (key == 'text')
+			{
+				this.dom.node().text(value);
+			}
+			else
+			{
+				wft_log("unexpected property change" + pa);
+			}
+		});
 	},
 	
 	createHtml: function() {
