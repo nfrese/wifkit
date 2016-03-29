@@ -83,31 +83,38 @@ public class AdvancedDomDemoRoot extends WftDomRoot {
 		{
 			WftDomElement option = new WftDomElement("option", "Monday");
 			select.add(option);
+			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Tuesday");
 			select.add(option);
+			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Wednesday");
 			select.add(option);
+			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Thursday");
 			select.add(option);
+			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Friday");
 			option.setAttribute("selected", "true");
 			select.add(option);
+			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Saturday");
 			select.add(option);
+			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Sunday");
 			select.add(option);
+			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
 		}
 		
 		super.init();

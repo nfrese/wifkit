@@ -70,6 +70,8 @@ var WFTDomElement = WFTList.extend({
 	{
 		this._super();
 		this.dom = new WFTDomHelper(this);
+		this.clientState = new WFTProperties(this);
+		
 		this.moved.on(function(pa) {
 			this.dom.moveChild(pa.ix, pa.toix);
 		}, this);
@@ -128,24 +130,41 @@ var WFTDomElement = WFTList.extend({
 	subscribe : function(ename, pa, callback)
 	{
 		var _this = this;
-		this.dom.node().on(ename, function() 
+		
+		if (ename == 'watch')
 		{
-			
 			var propName = pa['propname'];
-			var value = null;
 			
-			if (propName == 'attr:value')
-			{
-				value = _this.dom.node().val();
-			}
-			else if (propName == 'text')
-			{
-				value = _this.dom.node().text();
-			}
+			this.ctxt.beforeSend.on(function() {
+				var currentValue = this.dom.node().prop(propName);
+				this.clientState.put(propName, currentValue);
+				
+				this.clientState.changed(propName).on(function(pa) {
+					callback({'k' : pa['k'], 'v' : pa['v']});
+				});
+			}, this);
 			
-			callback({'k' : propName, 'v' : value});
-		});
-	},
+		}
+		else
+		{
+			this.dom.node().on(ename, function() {
+
+				var propName = pa['propname'];
+				var value = null;
+
+				if (propName == 'attr:value')
+				{
+					value = _this.dom.node().val();
+				}
+				else if (propName == 'text')
+				{
+					value = _this.dom.node().text();
+				}
+
+				callback({'k' : propName, 'v' : value});
+			});
+		}
+	}
 	
 });
 
