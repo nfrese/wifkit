@@ -121,7 +121,7 @@ var WFTDomElement = WFTList.extend({
 	}, 
 	
 	detachChild : function(childInstance) {
-		var itemNode = $('#' + this.itemId(childInstance));
+		var itemNode = $('#' + childInstance.dom.nodeId());
 		itemNode.remove();
 	}, 
 	
@@ -134,11 +134,11 @@ var WFTDomElement = WFTList.extend({
 			var propName = pa['propname'];
 			var value = null;
 			
-			if (propName = 'attr:value')
+			if (propName == 'attr:value')
 			{
 				value = _this.dom.node().val();
 			}
-			else if (propName = 'text')
+			else if (propName == 'text')
 			{
 				value = _this.dom.node().text();
 			}
