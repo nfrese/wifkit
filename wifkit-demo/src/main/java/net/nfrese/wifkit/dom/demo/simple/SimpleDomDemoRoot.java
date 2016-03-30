@@ -33,7 +33,7 @@ public class SimpleDomDemoRoot extends WftDomRoot {
 			System.out.println("hello");
 			String value = textInput.getAttribute("value");
 			span.setProperty("text", "Number of Characters: " + value.length());
-		}, 500);
+		});
 
 		super.init();
 	}

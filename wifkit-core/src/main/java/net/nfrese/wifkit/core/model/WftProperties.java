@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import net.nfrese.wifkit.core.utils.WftUtils;
+
 public class WftProperties {
 	
 	private final WftObject obj;
@@ -64,7 +66,7 @@ public class WftProperties {
 
 		map.put(propertyName, value);
 
-		if (oldValue != null && !oldValue.equals(value))
+		if (!WftUtils.nullSafeEquals(oldValue,value))
 		{
 			fire(propertyName, new PropertyChangeEvent(obj, propertyName, oldValue, value));
 		}

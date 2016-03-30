@@ -65,7 +65,7 @@ public class MyWftSelect extends WftList<MyWftOption> {
 			{
 				fireSelectionChangedListenersDeSelected(obj);
 			}
-		}, -1);
+		});
 		
 //		obj.addActionListener(new WftActionListener() {
 //			

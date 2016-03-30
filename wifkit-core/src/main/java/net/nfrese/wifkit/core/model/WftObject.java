@@ -173,7 +173,7 @@ public abstract class WftObject {
 		subscriptions.subscribe(eventName, propertyName, delayMilliseconds);
 	}
 
-	public void addPropertyChangedListener(String propertyName, PropertyChangeListener l, int delayMilliseconds) {
+	public void addPropertyChangedListener(String propertyName, PropertyChangeListener l) {
 		properties.on(propertyName, l);
 	}
 

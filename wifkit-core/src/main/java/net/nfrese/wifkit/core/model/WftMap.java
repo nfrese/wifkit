@@ -27,6 +27,12 @@ public abstract class WftMap <W extends WftObject> extends WftContainer<W> {
 		say("s_put", on);
 	}
 	
+	public W get(String key)
+	{
+		return map.get(key);
+	}
+	
+	
 	@Override
 	public Iterator<W> iterator() {
 		return map.values().iterator();

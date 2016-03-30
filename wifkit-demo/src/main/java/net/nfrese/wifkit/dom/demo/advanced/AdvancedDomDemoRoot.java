@@ -1,5 +1,8 @@
 package net.nfrese.wifkit.dom.demo.advanced;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
+
 import net.nfrese.wifkit.core.model.WftObject;
 import net.nfrese.wifkit.impl.dom.WftDomElement;
 import net.nfrese.wifkit.impl.dom.WftDomRoot;
@@ -42,7 +45,7 @@ public class AdvancedDomDemoRoot extends WftDomRoot {
 			System.out.println("hello");
 			String value = textInput.getAttribute("value");
 			span.setProperty("text", "Number of Characters: " + value.length());
-		}, 500);
+		});
 
 		div.add(new WftDomElement("br"));
 		
@@ -84,39 +87,61 @@ public class AdvancedDomDemoRoot extends WftDomRoot {
 			WftDomElement option = new WftDomElement("option", "Monday");
 			select.add(option);
 			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
+			option.addPropertyChangedListener("selected", (evt)->{if (((BooleanNode)evt.getNewValue()).asBoolean()) {showNotification(option.getStrProperty("text"));} });
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Tuesday");
 			select.add(option);
 			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
+			option.addPropertyChangedListener("selected", (evt)->{if (((BooleanNode)evt.getNewValue()).asBoolean()) {showNotification(option.getStrProperty("text"));} });
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Wednesday");
 			select.add(option);
 			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
+			option.addPropertyChangedListener("selected", (evt)->{if (((BooleanNode)evt.getNewValue()).asBoolean()) {showNotification(option.getStrProperty("text"));} });
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Thursday");
 			select.add(option);
 			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
+			option.addPropertyChangedListener("selected", (evt)->{if (((BooleanNode)evt.getNewValue()).asBoolean()) {showNotification(option.getStrProperty("text"));} });
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Friday");
 			option.setAttribute("selected", "true");
 			select.add(option);
 			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
+			option.addPropertyChangedListener("selected", (evt)->{if (((BooleanNode)evt.getNewValue()).asBoolean()) {showNotification(option.getStrProperty("text"));} });
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Saturday");
 			select.add(option);
 			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
+			option.addPropertyChangedListener("selected", (evt)->{if (((BooleanNode)evt.getNewValue()).asBoolean()) {showNotification(option.getStrProperty("text"));} });
 		}
 		{
 			WftDomElement option = new WftDomElement("option", "Sunday");
 			select.add(option);
 			option.monitor("watch", "selected", WftObject.DELAY_POSTPONED);
+			option.addPropertyChangedListener("selected", (evt)->{if (((BooleanNode)evt.getNewValue()).asBoolean()) {showNotification(option.getStrProperty("text"));} });
 		}
 		
 		super.init();
 	}
+	
+	public void showNotification(String text)
+	{
+		/// Notifications
+		WftDomElement notificationDiv = new WftDomElement("div");
+		getContent().add(notificationDiv);
+		
+		notificationDiv.setProperty("text", text);
+		notificationDiv.setAttribute("style", "position: absolute; left: 30px; "
+				+ "bottom: 30px; border: 3px solid #ff0000; padding: 20px; z-index : 10");
+		ArrayNode params = getNodeFactory().arrayNode();
+		params.add(1000);
+		notificationDiv.domInvoke("fadeOut", params);		
+	}
+	
 }

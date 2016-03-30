@@ -24,7 +24,7 @@ public class MyWftList extends WftList<WftObject> {
 
 		textField.addPropertyChangedListener("text", (evt) -> {
 			sizelabel.setText("Number of Characters: " + textField.getText().length());
-		}, 1000);
+		});
 
 		final MyWftButton button = new MyWftButton("Click me");
 		this.add(button);	

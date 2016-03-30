@@ -164,6 +164,12 @@ var WFTDomElement = WFTList.extend({
 				callback({'k' : propName, 'v' : value});
 			});
 		}
+	},
+	
+	svr_dominvoke : function (call)
+	{
+		var node = this.dom.node();
+		node[call['method']].apply(node, call['pa']);
 	}
 	
 });
